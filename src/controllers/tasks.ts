@@ -16,6 +16,7 @@ export const getByUserId = async (req, res, next) => {
     const { userId } = req.userId
     const { date } = req.query
     console.log(typeof date)
+    console.log(userId)
 
     const [year, month, day] = date.split("-");
 
@@ -24,8 +25,8 @@ export const getByUserId = async (req, res, next) => {
 
     try {
         const tasks = await Tasks.find({
-            userId, expirationDate
-                : { $gte: startOfDay, $lte: endOfDay }
+            userId, 
+            expirationDate: { $gte: startOfDay, $lte: endOfDay }
         })
         if (tasks.length === 0) {
             return res.status(200).send(`No hay tareas asignadas para el día ${date}.`);

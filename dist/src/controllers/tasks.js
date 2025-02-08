@@ -18,12 +18,14 @@ const getByUserId = async (req, res, next) => {
     const { userId } = req.userId;
     const { date } = req.query;
     console.log(typeof date);
+    console.log(userId);
     const [year, month, day] = date.split("-");
     const startOfDay = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
     const endOfDay = new Date(`${year}-${month}-${day}T23:59:59.999Z`);
     try {
         const tasks = await tasks_1.Tasks.find({
-            userId, expirationDate: { $gte: startOfDay, $lte: endOfDay }
+            userId,
+            expirationDate: { $gte: startOfDay, $lte: endOfDay }
         });
         if (tasks.length === 0) {
             return res.status(200).send(`No hay tareas asignadas para el día ${date}.`);
