@@ -35,7 +35,8 @@ export const getAllTaskDate = async (ctx: Context, token: string, date: string) 
 
 export const getAllTasks = async (ctx: Context, token: string, obj: openAiResponse) => {
 
-const pending = obj.pending  
+const pending = obj.pending
+console.log('eo', pending)  
 
     const {data} = await axios.get(`${process.env.BACK_URL}/api/tasks/getAll`,
         {
