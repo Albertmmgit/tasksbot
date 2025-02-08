@@ -75,7 +75,7 @@ const deleteTask = async (req, res, next) => {
 };
 exports.deleteTask = deleteTask;
 const taskCompleted = async (req, res, next) => {
-    const task = req.params;
+    const { task } = req.params;
     const userId = req.userId;
     console.log(req.params);
     try {
