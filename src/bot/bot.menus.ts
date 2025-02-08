@@ -44,7 +44,7 @@ export const actionsMenu = (ctx: Context, obj, user) => {
             }
         case 'getTask':
             {
-                getAllTask(ctx, user.token, obj)
+                getAllTask(ctx, user.token, obj.expirationDate)
                 break;
             }
         case 'checkCompleted':

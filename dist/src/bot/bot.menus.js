@@ -44,7 +44,7 @@ const actionsMenu = (ctx, obj, user) => {
             }
         case 'getTask':
             {
-                (0, bot_tasks_1.getAllTask)(ctx, user.token, obj);
+                (0, bot_tasks_1.getAllTask)(ctx, user.token, obj.expirationDate);
                 break;
             }
         case 'checkCompleted':
