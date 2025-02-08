@@ -23,7 +23,7 @@ const getAllTask = async (ctx, token, date) => {
         headers: { Authorization: token }
     });
     console.log(data);
-    if (data.length === 0)
+    if (!Array.isArray(data))
         return ctx.reply(data);
     const responseMessage = data.map((task, index) => `${index + 1}. ${task.description} ${task.completed ? "✅ " : "❌ "}`)
         .join("\n");
