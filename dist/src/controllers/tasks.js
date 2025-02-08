@@ -39,7 +39,7 @@ const getByUserId = async (req, res, next) => {
 };
 exports.getByUserId = getByUserId;
 const getAll = async (req, res, next) => {
-    const userId = req.user.id;
+    const userId = req.userId;
     const pending = req.query.pending === "true";
     console.log('aqui', req.query);
     try {
