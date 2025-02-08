@@ -71,7 +71,7 @@ bot.on('message', async (ctx: Context) => {
     const user = Array.from(connectedUsers).find(user => user.id === id);
     const date = new Date(ctx.message!.date * 1000).toString()
 
-    if (!user) return ctx.reply('Debes iniciar la app con el comadno /start')
+    if (!user) return ctx.reply('Debes iniciar la app con el comando /iniciar')
 
     if (user.logged === true && 'text' in ctx.message!) {
         const text = ctx.message.text
