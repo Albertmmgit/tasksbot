@@ -32,7 +32,7 @@ const getAllTaskDate = async (ctx, token, date) => {
 exports.getAllTaskDate = getAllTaskDate;
 const getAllTasks = async (ctx, token, obj) => {
     const pending = obj.pending;
-    const { data } = await axios_1.default.get(`${process.env.BACK_URL}/api/tasks/get`, {
+    const { data } = await axios_1.default.get(`${process.env.BACK_URL}/api/tasks/getAll`, {
         params: { pending },
         headers: { Authorization: token }
     });

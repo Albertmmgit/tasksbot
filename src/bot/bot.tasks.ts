@@ -37,7 +37,7 @@ export const getAllTasks = async (ctx: Context, token: string, obj: openAiRespon
 
 const pending = obj.pending  
 
-    const {data} = await axios.get(`${process.env.BACK_URL}/api/tasks/get`,
+    const {data} = await axios.get(`${process.env.BACK_URL}/api/tasks/getAll`,
         {
             params: { pending },
             headers: { Authorization: token }
