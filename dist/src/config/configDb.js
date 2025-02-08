@@ -7,7 +7,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const connectDB = async () => {
-    const url = `mongodb+srv://amartinezmarg:${process.env.DB_KEY}@tasksbotapp.dwyu3.mongodb.net/?retryWrites=true&w=majority&appName=tasksbotapp`;
+    const url = `mongodb+srv://amartinezmarg:${process.env.DB_KEY}@tasksbotapp.dwyu3.mongodb.net/?retryWrites=true&w=majority&ssl=true&appName=tasksbotapp`;
     try {
         mongoose_1.default.connect(url);
         console.log("Conectado a MongoDB Atlas");

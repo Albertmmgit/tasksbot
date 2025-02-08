@@ -32,7 +32,7 @@ const login = async (ctx) => {
         const { data } = await axios_1.default.post(`${process.env.BACK_URL}/api/users/login`, userData);
         (0, bot_utilities_1.changeStatus)(ctx, 'logged');
         ctx.reply(`Login Correcto con el usuario ${data.username}`);
-        ctx.reply('Ahora puedes crear, ver o eliminar tareas, asignarlas a un calendario o marcalas como completadas utilizando un lengaje natural ya sea con texto o voz.');
+        ctx.reply('Ahora puedes crear, ver o eliminar tareas, asignarlas a un calendario o marcalas como completadas utilizando un lengaje natural ya sea con texto o voz. Utiliza el comando /ejemplos para ver que puedes hacer');
         (0, bot_utilities_1.addToken)(ctx, data.token);
         return;
     }

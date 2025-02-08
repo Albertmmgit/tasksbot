@@ -21,17 +21,18 @@ const streamPipeline = (0, util_1.promisify)(stream_1.pipeline);
 exports.bot = new telegraf_1.Telegraf(process.env.BOT_TOKEN);
 exports.connectedUsers = new Set();
 exports.bot.telegram.setMyCommands([
-    { command: '/start', description: 'Iniciar App' },
-    { command: '/logout', description: 'Desconectarse' }
+    { command: '/iniciar', description: 'Iniciar App' },
+    { command: '/logout', description: 'Desconectarse' },
+    { command: '/ejemplos', description: 'Ver ejemplos' }
 ]);
 exports.bot.start((ctx) => {
     const welcomeMessage = `
     ¡Hola! 👋
-    Bienvenida@. Utiliza el comando /start para iniciar la aplicación
+    Bienvenida@. Utiliza el comando /iniciar para iniciar la aplicación
     `;
     ctx.sendMessage(welcomeMessage);
 });
-exports.bot.command('start', (ctx) => {
+exports.bot.command('iniciar', (ctx) => {
     const user = {
         id: ctx.chat.id,
         token: undefined,
@@ -47,6 +48,14 @@ exports.bot.command('start', (ctx) => {
         ctx.reply('¡Ya estás conectado!');
     }
 });
+exports.bot.command('ejemplos', (ctx) => {
+    const respone = `
+    'Añade comprar pan mañana'
+    'Ver tareas del domingo'
+    'Que día tengo que que entregar el exámen'
+    `;
+    ctx.sendMessage(respone);
+});
 exports.bot.on('callback_query', (ctx) => {
     (0, bot_menus_1.callBackQuery)(ctx);
 });
@@ -55,7 +64,7 @@ exports.bot.on('message', async (ctx) => {
     const user = Array.from(exports.connectedUsers).find(user => user.id === id);
     const date = new Date(ctx.message.date * 1000).toString();
     if (!user)
-        return ctx.reply('Debes iniciar la app con el comadno /start');
+        return ctx.reply('Debes iniciar la app con el comando /iniciar');
     if (user.logged === true && 'text' in ctx.message) {
         const text = ctx.message.text;
         const response = await (0, gpt_1.createResponse)(text, date);
