@@ -1,0 +1,15 @@
+@url = https://0745-46-6-47-232.ngrok-free.app
+
+###
+POST {{url}}/api/tasks/add-task
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjc5ZTVjZGE3ZGUyMjU5ZTQwYzFlNTBiIiwiaWF0IjoxNzM4NDM2MDU0LCJleHAiOjE3Mzg0Mzk2NTR9.wqDhKCXTgg6Uf5YXLGNhquXobbOafE4MBpMfMbp4qSI
+
+
+{
+    "description": "Pincha  bien",
+    "urgent": 2,
+    "important": 2,
+    "newDate": "2025-02-02"
+}
+
