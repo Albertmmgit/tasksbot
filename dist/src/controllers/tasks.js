@@ -17,6 +17,7 @@ exports.postTask = postTask;
 const getByUserId = async (req, res, next) => {
     const { userId } = req.userId;
     const { date } = req.query;
+    console.log(typeof date);
     const [year, month, day] = date.split("-");
     const startOfDay = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
     const endOfDay = new Date(`${year}-${month}-${day}T23:59:59.999Z`);

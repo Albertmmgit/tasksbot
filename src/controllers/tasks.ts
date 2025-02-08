@@ -15,6 +15,7 @@ export const postTask = async (req, res, next) => {
 export const getByUserId = async (req, res, next) => {
     const { userId } = req.userId
     const { date } = req.query
+    console.log(typeof date)
 
     const [year, month, day] = date.split("-");
 
