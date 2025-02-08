@@ -6,7 +6,7 @@ dotenv.config()
 
 const connectDB = async () => {
 
-    const url = `mongodb+srv://amartinezmarg:${process.env.DB_KEY}@tasksbotapp.dwyu3.mongodb.net/?retryWrites=true&w=majority&appName=tasksbotapp`
+    const url = `mongodb+srv://amartinezmarg:${process.env.DB_KEY}@tasksbotapp.dwyu3.mongodb.net/?retryWrites=true&w=majority&ssl=true&appName=tasksbotapp`
     try {
  
         mongoose.connect(url)
