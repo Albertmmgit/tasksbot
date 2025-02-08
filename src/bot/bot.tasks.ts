@@ -25,6 +25,7 @@ export const getAllTask = async (ctx: Context, token: string, date: string) => {
             headers: { Authorization: token }
         }
     )
+    console.log(data)
     if (data.length === 0) return ctx.reply(data)
 
     const responseMessage = data.map((task: openAiResponse, index: number) => `${index + 1}. ${task.description} ${task.completed ? "✅ " : "❌ "}`)
