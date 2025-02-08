@@ -59,6 +59,7 @@ const actionsMenu = (ctx, obj, user) => {
             }
         case 'getAllTasks':
             {
+                (0, bot_tasks_1.getAllTasks)(ctx, user.token, obj);
                 break;
             }
         case 'getDay':
