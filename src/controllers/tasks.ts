@@ -27,7 +27,7 @@ export const getByUserId = async (req, res, next) => {
             userId, expirationDate
                 : { $gte: startOfDay, $lte: endOfDay }
         })
-        if (!tasks) {
+        if (tasks.length === 0) {
             return res.status(404).send(`No hay tareas asignadas para el día ${date}.`);
         }
         res.status(200).json(tasks)
