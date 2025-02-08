@@ -13,7 +13,7 @@ export const postTask = async (req, res, next) => {
 }
 
 export const getByUserId = async (req, res, next) => {
-    const { userId } = req.userId
+    const userId  = req.userId
     const { date } = req.query
     console.log(typeof date)
     console.log(userId)
@@ -56,7 +56,7 @@ export const getTaskByDate = async (req, res, next) => {
 
 export const deleteTask = async (req, res, next) => {
     const { task } = req.params;
-    const { userId } = req.userId
+    const userId  = req.userId
     try {
         const response = await Tasks.findOneAndDelete(
             {
