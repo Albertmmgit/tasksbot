@@ -34,7 +34,7 @@ export const createResponse = async (ctx: string, date: string) => {
             {
             "action": "Aquí escribe la acción", 
             "description": "Aquí escribe la tarea", 
-            "date" (if exists): "Aquí escribe la fecha con formato YYYY-MM-DD, 
+            "expirationDate" (if exists): "Aquí escribe la fecha con formato YYYY-MM-DD, 
             "completed" (if exists): "Aquí escribe 'true' 
              en caso que la tarea sea completada
             }. En caso de que no puedas procesar la petición devuelve este string en formato json sin markdowns { mensaje: No te he entendido.}
