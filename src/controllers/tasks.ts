@@ -75,8 +75,8 @@ export const deleteTask = async (req, res, next) => {
 }
 
 export const taskCompleted = async (req, res, next) => {
-    const { task } = req.params
-    const { userId } = req.userId
+    const  task  = req.params
+    const  userId  = req.userId
     console.log(req.params)
     try {
         const response = await Tasks.findOneAndUpdate(
