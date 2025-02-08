@@ -26,11 +26,11 @@ export const createResponse = async (ctx: string, date: string) => {
     const response = await openAi.chat.completions.create({
         model: 'chatgpt-4o-latest',
         messages: [
-            {role: 'system', content: 'Eres un asistente especializado en gestionar tareas dentro de una aplicación. No debes responder con texto para el usuario, sino con un JSON válido que indique qué acción debe realizar la API.'},
+            {role: 'system', content: 'Eres un asistente especializado en gestionar tareas dentro de una aplicación. No debes responder con texto para el usuario, sino con un JSON válido sin markdowns que indique qué acción debe realizar la API.'},
 
             {role: 'assistant', content: `Tu objetivo es analizar la petición del usuario y clasificarla en una de las siguientes acciones: "addTask" (añadir tarea), "getTask" (consultar tareas por ID o fecha), "checkCompleted" (marcar tarea como completada), "deleteTask" (eliminar tarea) o "getDay" (preguntar que día hay que hacer una determinada tarea). Siempre tienes que basarte en ${date} para determinar la fecha correcta, ten en cuenta tambíen que la fecha de grabación siempre sera superior a la actual`},
 
-            {role: 'user', content: `El usuario te pasa esta peticion ${ctx}, tu función es determinar que quiere hacer el usuario, las opciones sin grabar una tarea, eliminarla, ver tareas pendientes en una fecha determinada, marcar como completada una determinada tarea...Las acciones que debes determinar son: "addTask", "getTask" (by Id or date), "checkCompleted", "deleteTask", "getDay". Devuelve la respuesta como una cadena en un formato válido json sin rebajas:
+            {role: 'user', content: `El usuario te pasa esta peticion ${ctx}, tu función es determinar que quiere hacer el usuario, las opciones sin grabar una tarea, eliminarla, ver tareas pendientes en una fecha determinada, marcar como completada una determinada tarea...Las acciones que debes determinar son: "addTask", "getTask" (by Id or date), "checkCompleted", "deleteTask", "getDay". Devuelve la respuesta como una cadena en un formato válido json sin markdowns:
             {
             "action": "Aquí escribe la acción", 
             "task": "Aquí escribe la tarea", 
