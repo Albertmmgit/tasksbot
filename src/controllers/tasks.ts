@@ -41,7 +41,7 @@ export const getByUserId = async (req, res, next) => {
 export const getAll = async (req, res, next) => {
     const userId = req.user.id
     const {pending} = req.query
-    console.log(pending)
+    console.log('aqui', pending)
     try {
         const tasks = await Tasks.find({
             userId,
