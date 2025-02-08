@@ -44,7 +44,7 @@ const actionsMenu = (ctx, obj, user) => {
             }
         case 'getTask':
             {
-                (0, bot_tasks_1.getAllTask)(ctx, user.token, obj.expirationDate);
+                (0, bot_tasks_1.getAllTaskDate)(ctx, user.token, obj.expirationDate);
                 break;
             }
         case 'checkCompleted':
@@ -55,6 +55,10 @@ const actionsMenu = (ctx, obj, user) => {
         case 'deleteTask':
             {
                 (0, bot_tasks_1.deleteTask)(ctx, user.token, obj);
+                break;
+            }
+        case 'pending':
+            {
                 break;
             }
         case 'getDay':

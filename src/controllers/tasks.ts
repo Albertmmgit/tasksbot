@@ -45,7 +45,7 @@ export const getTaskByDate = async (req, res, next) => {
     try {
         const response = await Tasks.find({
             userId,
-            description: { $regex: task, $options: "i" }
+            description: { $regex: new RegExp(task, "i") }
         })
         res.status(200).json(response)
     } catch (error) {

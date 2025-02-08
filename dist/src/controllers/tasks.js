@@ -45,7 +45,7 @@ const getTaskByDate = async (req, res, next) => {
     try {
         const response = await tasks_1.Tasks.find({
             userId,
-            description: { $regex: task, $options: "i" }
+            description: { $regex: new RegExp(task, "i") }
         });
         res.status(200).json(response);
     }

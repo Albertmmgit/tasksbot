@@ -1,7 +1,7 @@
 import { Context } from "telegraf"
 import { CallbackQuery } from "telegraf/typings/core/types/typegram";
 import { changeStatus } from "./bot.utilities";
-import { addTask, checkCompleted, deleteTask, getAllTask, getDay } from "./bot.tasks";
+import { addTask, checkCompleted, deleteTask, getAllTaskDate, getDay } from "./bot.tasks";
 import { login, register } from "./bot.users";
 
 export const startMenu = (ctx: Context) => {
@@ -44,7 +44,7 @@ export const actionsMenu = (ctx: Context, obj, user) => {
             }
         case 'getTask':
             {
-                getAllTask(ctx, user.token, obj.expirationDate)
+                getAllTaskDate(ctx, user.token, obj.expirationDate)
                 break;
             }
         case 'checkCompleted':
@@ -55,6 +55,10 @@ export const actionsMenu = (ctx: Context, obj, user) => {
         case 'deleteTask':
             {
                 deleteTask(ctx, user.token, obj)
+                break
+            }
+        case 'pending' :
+            {
                 break
             }
         case 'getDay':

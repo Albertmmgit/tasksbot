@@ -17,7 +17,7 @@ export const addTask = async (ctx: Context, token: string, obj: openAiResponse) 
     return ctx.reply(`Tarea ${data.description} grabada correctamente par el día ${data.expirationDate}`)
 }
 
-export const getAllTask = async (ctx: Context, token: string, date: string) => {
+export const getAllTaskDate = async (ctx: Context, token: string, date: string) => {
 
     const { data } = await axios.get(`${process.env.BACK_URL}/api/tasks/get`,
         {
@@ -31,6 +31,18 @@ export const getAllTask = async (ctx: Context, token: string, date: string) => {
     const responseMessage = data.map((task: openAiResponse, index: number) => `${index + 1}. ${task.description} ${task.completed ? "✅ " : "❌ "}`)
         .join("\n");
     return ctx.reply(responseMessage)
+}
+
+export const getAllTasks = async (ctx: Context, token: string, obj: openAiResponse) => {
+
+const pending = obj.pending    
+    const {data} = await axios.get(`${process.env.BACK_URL}/api/tasks/get`,
+        {
+            params: { pending },
+            headers: { Authorization: token }
+        }
+    )
+    console.log(data)
 }
 
 export const checkCompleted = async (ctx: Context, token: string, obj: openAiResponse) => {
