@@ -47,6 +47,7 @@ export const getAll = async (req, res, next) => {
             userId,
             completed: !pending
         })
+        console.log('tasks', tasks)
         if (tasks.length === 0) {
             return res.status(200).send('No hay tareas pendientes');
         }
