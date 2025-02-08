@@ -57,7 +57,7 @@ const actionsMenu = (ctx, obj, user) => {
                 (0, bot_tasks_1.deleteTask)(ctx, user.token, obj);
                 break;
             }
-        case 'pending':
+        case 'getAllTasks':
             {
                 break;
             }

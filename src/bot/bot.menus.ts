@@ -57,7 +57,7 @@ export const actionsMenu = (ctx: Context, obj, user) => {
                 deleteTask(ctx, user.token, obj)
                 break
             }
-        case 'pending' :
+        case 'getAllTasks' :
             {
                 break
             }
