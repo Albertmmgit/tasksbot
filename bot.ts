@@ -23,7 +23,8 @@ export const connectedUsers: Set<User> = new Set()
 
 bot.telegram.setMyCommands([
     {command: '/start', description: 'Iniciar App'},
-    {command: '/logout', description: 'Desconectarse'}
+    {command: '/logout', description: 'Desconectarse'},
+    {command: '/ejemplos', description: 'Ver ejemplos'}
 ])
 
 bot.start( (ctx) => {
@@ -49,6 +50,16 @@ bot.command('start', (ctx) => {
     } else {
         ctx.reply('¡Ya estás conectado!');
     }
+})
+
+bot.command('ejemplos', (ctx) => {
+    const respone = `
+    'Añade comprar pan mañana'
+    'Ver tareas del domingo'
+    'Que día tengo que que entregar el exámen'
+    `;
+
+    ctx.sendMessage(respone)
 })
 
 bot.on('callback_query', (ctx) => {
