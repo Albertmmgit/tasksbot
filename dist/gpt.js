@@ -32,7 +32,7 @@ const createResponse = async (ctx, date) => {
             { role: 'user', content: `El usuario te pasa esta peticion ${ctx}, tu función es determinar que quiere hacer el usuario, las opciones sin grabar una tarea, eliminarla, ver tareas pendientes en una fecha determinada, marcar como completada una determinada tarea...Las acciones que debes determinar son: "addTask", "getTask" (by Id or date), "checkCompleted", "deleteTask", "getDay". Devuelve la respuesta como una cadena en un formato válido json sin markdowns:
             {
             "action": "Aquí escribe la acción", 
-            "task": "Aquí escribe la tarea", 
+            "description": "Aquí escribe la tarea", 
             "date" (if exists): "Aquí escribe la fecha con formato YYYY-MM-DD, 
             "completed" (if exists): "Aquí escribe 'true' 
              en caso que la tarea sea completada
