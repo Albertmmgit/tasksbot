@@ -12,7 +12,7 @@ router.post('/add-task', verifyToken, postTask);
 router.get('/get', verifyToken, getByUserId);
 
 //get all tasks
-router.get('getAll', verifyToken, getAll )
+router.get('/getAll', verifyToken, getAll )
 
 //get one task
 router.get('/:task', verifyToken, getTaskByDate);
