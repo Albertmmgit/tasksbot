@@ -38,6 +38,24 @@ export const getByUserId = async (req, res, next) => {
     }
 }
 
+export const getAll = async (req, res, next) => {
+    const userId = req.user.id
+    const {pending} = req.query
+    try {
+        const tasks = await Tasks.find({
+            userId,
+            completed: !pending
+        })
+        if (tasks.length === 0) {
+            return res.status(200).send('No hay tareas pendientes');
+        }
+        res.status(200).json(tasks)
+    } catch (error) {
+        next(error)
+        res.status(400).send('Error al obtener las tareas')
+    }
+}
+
 export const getTaskByDate = async (req, res, next) => {
     const { task } = req.params
     const userId = req.userId

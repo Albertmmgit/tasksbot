@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.taskCompleted = exports.deleteTask = exports.getTaskByDate = exports.getByUserId = exports.postTask = void 0;
+exports.taskCompleted = exports.deleteTask = exports.getTaskByDate = exports.getAll = exports.getByUserId = exports.postTask = void 0;
 const tasks_1 = require("../models/tasks");
 const postTask = async (req, res, next) => {
     req.body.userId = req.userId;
@@ -38,6 +38,25 @@ const getByUserId = async (req, res, next) => {
     }
 };
 exports.getByUserId = getByUserId;
+const getAll = async (req, res, next) => {
+    const userId = req.user.id;
+    const { pending } = req.query;
+    try {
+        const tasks = await tasks_1.Tasks.find({
+            userId,
+            completed: !pending
+        });
+        if (tasks.length === 0) {
+            return res.status(200).send('No hay tareas pendientes');
+        }
+        res.status(200).json(tasks);
+    }
+    catch (error) {
+        next(error);
+        res.status(400).send('Error al obtener las tareas');
+    }
+};
+exports.getAll = getAll;
 const getTaskByDate = async (req, res, next) => {
     const { task } = req.params;
     const userId = req.userId;

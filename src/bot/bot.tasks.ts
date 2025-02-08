@@ -35,7 +35,8 @@ export const getAllTaskDate = async (ctx: Context, token: string, date: string) 
 
 export const getAllTasks = async (ctx: Context, token: string, obj: openAiResponse) => {
 
-const pending = obj.pending    
+const pending = obj.pending  
+
     const {data} = await axios.get(`${process.env.BACK_URL}/api/tasks/get`,
         {
             params: { pending },
@@ -43,6 +44,11 @@ const pending = obj.pending
         }
     )
     console.log(data)
+
+    const responseMessage = data.map((task: openAiResponse, index: number) => `${index + 1}. ${task.description} - ${task.expirationDate} ${pending ? "" : (task.completed ? "✅ " : "❌ ")}
+`)
+        .join("\n");
+    return ctx.reply(responseMessage)
 }
 
 export const checkCompleted = async (ctx: Context, token: string, obj: openAiResponse) => {

@@ -9,8 +9,10 @@ const middlewares_1 = require("../utilities/middlewares");
 const router = express_1.default.Router();
 //add task
 router.post('/add-task', middlewares_1.verifyToken, tasks_1.postTask);
-//get all tasks by user
+//get all tasks by Date
 router.get('/get', middlewares_1.verifyToken, tasks_1.getByUserId);
+//get all tasks
+router.get('getAll', middlewares_1.verifyToken, tasks_1.getAll);
 //get one task
 router.get('/:task', middlewares_1.verifyToken, tasks_1.getTaskByDate);
 //check task completed
