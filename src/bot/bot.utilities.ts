@@ -1,6 +1,6 @@
 import { Context } from "telegraf";
 import { connectedUsers } from "../../bot";
-import googleTTS from "google-tts-api"; 
+import * as googleTTS from "google-tts-api"; 
 import { dateText } from "../../gpt";
 import axios from 'axios'
 import { openAiResponse } from "../interfaces/iopenairesponse";
