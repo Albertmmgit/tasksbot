@@ -16,7 +16,7 @@ export const verifyToken = (req, res, next) => {
         }
 
         req.userId = decoded.user_id; 
-        console.log(decoded)
+    
      
         next(); 
     });

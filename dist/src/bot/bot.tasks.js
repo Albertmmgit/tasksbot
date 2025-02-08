@@ -36,7 +36,9 @@ const getAllTasks = async (ctx, token, obj) => {
         params: { pending },
         headers: { Authorization: token }
     });
-    console.log(data);
+    console.log('respuesta', data);
+    if (!Array.isArray(data))
+        return ctx.reply(data);
     const responseMessage = data.map((task, index) => `${index + 1}. ${task.description} - ${task.expirationDate} ${pending ? "" : (task.completed ? "✅ " : "❌ ")}
 `)
         .join("\n");
