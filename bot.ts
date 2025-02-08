@@ -22,7 +22,7 @@ export const bot = new Telegraf(process.env.BOT_TOKEN!);
 export const connectedUsers: Set<User> = new Set()
 
 bot.telegram.setMyCommands([
-    {command: '/start', description: 'Iniciar App'},
+    {command: '/iniciar', description: 'Iniciar App'},
     {command: '/logout', description: 'Desconectarse'},
     {command: '/ejemplos', description: 'Ver ejemplos'}
 ])
@@ -31,12 +31,12 @@ bot.start( (ctx) => {
  
     const welcomeMessage = `
     ¡Hola! 👋
-    Bienvenida@. Utiliza el comando /start para iniciar la aplicación
+    Bienvenida@. Utiliza el comando /iniciar para iniciar la aplicación
     `;
 
     ctx.sendMessage(welcomeMessage)
 });
-bot.command('start', (ctx) => {
+bot.command('iniciar', (ctx) => {
     const user: User = {
         id: ctx.chat.id,
         token: undefined,
