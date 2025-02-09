@@ -22,6 +22,7 @@ const getAllTaskDate = async (ctx, token, obj) => {
     const params = { expirationDate };
     if (pending)
         params.completed = true;
+    console.log(params);
     const { data } = await axios_1.default.get(`${process.env.BACK_URL}/api/tasks/get`, {
         params,
         headers: { Authorization: token }

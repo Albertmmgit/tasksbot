@@ -25,7 +25,7 @@ export const getAllTaskDate = async (ctx: Context, token: string, obj: openAiRes
     const params: tasksFilter = { expirationDate}
 
     if (pending) params.completed = true
-
+    console.log(params)
     const { data } = await axios.get(`${process.env.BACK_URL}/api/tasks/get`,
         {
             params,
