@@ -18,7 +18,7 @@ const getByUserId = async (req, res, next) => {
     const userId = req.userId;
     const { date, pending } = req.query;
     console.log(typeof date);
-    console.log(userId);
+    console.log('pending?', pending);
     let filter = { userId };
     if (date) {
         const [year, month, day] = date.split("-");
@@ -29,6 +29,7 @@ const getByUserId = async (req, res, next) => {
     if (pending) {
         filter.completed = true;
     }
+    console.log('filtro', filter);
     try {
         const tasks = await tasks_1.Tasks.find(filter);
         if (tasks.length === 0) {

@@ -17,7 +17,7 @@ export const getByUserId = async (req, res, next) => {
     const userId  = req.userId
     const { date, pending} = req.query
     console.log(typeof date)
-    console.log(userId)
+    console.log('pending?', pending)
 
     let filter: any = {userId}
 
@@ -34,6 +34,7 @@ export const getByUserId = async (req, res, next) => {
         filter.completed = true
     }
 
+    console.log('filtro', filter)
 
     try {
         const tasks = await Tasks.find(filter)

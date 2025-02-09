@@ -1,5 +1,5 @@
 import express from 'express';
-import { deleteTask, getAll, getByUserId, getTaskByDate, postTask, taskCompleted } from '../controllers/tasks';
+import { deleteTask, getByUserId, getTaskByDate, postTask, taskCompleted } from '../controllers/tasks';
 import { verifyToken } from '../utilities/middlewares';
 
 
