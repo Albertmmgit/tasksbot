@@ -11,9 +11,6 @@ router.post('/add-task', verifyToken, postTask);
 //get tasks 
 router.get('/get', verifyToken, getByUserId);
 
-//get all tasks
-// router.get('/getAll', verifyToken, getAll )
-
 //get one task
 router.get('/:task', verifyToken, getTaskByDate);
 

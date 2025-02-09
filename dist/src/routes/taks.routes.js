@@ -11,8 +11,6 @@ const router = express_1.default.Router();
 router.post('/add-task', middlewares_1.verifyToken, tasks_1.postTask);
 //get tasks 
 router.get('/get', middlewares_1.verifyToken, tasks_1.getByUserId);
-//get all tasks
-// router.get('/getAll', verifyToken, getAll )
 //get one task
 router.get('/:task', middlewares_1.verifyToken, tasks_1.getTaskByDate);
 //check task completed

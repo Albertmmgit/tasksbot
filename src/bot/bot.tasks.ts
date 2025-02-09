@@ -3,6 +3,7 @@ import { Context } from "telegraf";
 import { openAiResponse } from "../interfaces/iopenairesponse";
 import { audioResponse } from "./bot.utilities";
 import { tasksFilter } from "../interfaces/itaskfilter";
+import {format} from 'date-fns'
 
 
 export const addTask = async (ctx: Context, token: string, obj: openAiResponse) => {
@@ -34,10 +35,17 @@ export const getAllTaskDate = async (ctx: Context, token: string, obj: openAiRes
     )
     console.log(data)
     if (!Array.isArray(data)) return ctx.reply(data)
-        
-    const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${expirationDate}` : ""}son:`   
 
-    const responseMessage = data
+ 
+        
+    const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${expirationDate}` : ""}son:`  
+    
+    const newData = data.map(task => ({
+        ...task, 
+        formattedDate: format(new Date(task.expirationDate), "dd-MM-yyyy") 
+    }))
+
+    const responseMessage = newData
     .map((task: openAiResponse, index: number) => 
         `${index + 1}. ${task.description}` + 
         (expirationDate ? "" : ` - ${task.expirationDate}`) + 
@@ -45,29 +53,8 @@ export const getAllTaskDate = async (ctx: Context, token: string, obj: openAiRes
     )
     .join("\n");
 
-    return ctx.reply(responseMessage1), ctx.reply(responseMessage)
+    return await ctx.reply(responseMessage1), await ctx.reply(responseMessage)
 }
-
-// export const getAllTasks = async (ctx: Context, token: string, obj: openAiResponse) => {
-
-// const pending = obj.pending
-
-
-//     const {data} = await axios.get(`${process.env.BACK_URL}/api/tasks/getAll`,
-//         {
-//             params: { pending },
-//             headers: { Authorization: token }
-//         }
-//     )
-//     console.log('respuesta', data)
-
-//     if (data.length === 0) return ctx.reply(data)
-
-//     const responseMessage = data.map((task: openAiResponse, index: number) => `${index + 1}. ${task.description} - ${task.expirationDate} ${pending ? "" : (task.completed ? "✅ " : "❌ ")}
-// `)
-//         .join("\n");
-//     return ctx.reply(responseMessage)
-// }
 
 export const checkCompleted = async (ctx: Context, token: string, obj: openAiResponse) => {
     const { data } = await axios.put(`${process.env.BACK_URL}/api/tasks/${obj.description}/completed`, {},

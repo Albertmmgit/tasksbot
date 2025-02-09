@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getDay = exports.deleteTask = exports.checkCompleted = exports.getAllTaskDate = exports.addTask = void 0;
 const axios_1 = __importDefault(require("axios"));
 const bot_utilities_1 = require("./bot.utilities");
+const date_fns_1 = require("date-fns");
 const addTask = async (ctx, token, obj) => {
     const task = {
         description: obj.description,
@@ -31,29 +32,18 @@ const getAllTaskDate = async (ctx, token, obj) => {
     if (!Array.isArray(data))
         return ctx.reply(data);
     const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${expirationDate}` : ""}son:`;
-    const responseMessage = data
+    const newData = data.map(task => ({
+        ...task,
+        formattedDate: (0, date_fns_1.format)(new Date(task.expirationDate), "dd-MM-yyyy")
+    }));
+    const responseMessage = newData
         .map((task, index) => `${index + 1}. ${task.description}` +
         (expirationDate ? "" : ` - ${task.expirationDate}`) +
         (pending ? "" : ` ${task.completed ? "✅" : "❌"}`))
         .join("\n");
-    return ctx.reply(responseMessage1), ctx.reply(responseMessage);
+    return await ctx.reply(responseMessage1), await ctx.reply(responseMessage);
 };
 exports.getAllTaskDate = getAllTaskDate;
-// export const getAllTasks = async (ctx: Context, token: string, obj: openAiResponse) => {
-// const pending = obj.pending
-//     const {data} = await axios.get(`${process.env.BACK_URL}/api/tasks/getAll`,
-//         {
-//             params: { pending },
-//             headers: { Authorization: token }
-//         }
-//     )
-//     console.log('respuesta', data)
-//     if (data.length === 0) return ctx.reply(data)
-//     const responseMessage = data.map((task: openAiResponse, index: number) => `${index + 1}. ${task.description} - ${task.expirationDate} ${pending ? "" : (task.completed ? "✅ " : "❌ ")}
-// `)
-//         .join("\n");
-//     return ctx.reply(responseMessage)
-// }
 const checkCompleted = async (ctx, token, obj) => {
     const { data } = await axios_1.default.put(`${process.env.BACK_URL}/api/tasks/${obj.description}/completed`, {}, {
         headers: { Authorization: token }

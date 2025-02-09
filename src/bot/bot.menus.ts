@@ -16,7 +16,7 @@ export const startMenu = (ctx: Context) => {
 }
 
 export const callBackQuery = (ctx) => {
-    const callbackData: CallbackQuery = ctx.callbackQuery; // Esto obtiene el valor del callback_data
+    const callbackData: CallbackQuery = ctx.callbackQuery; 
     if ('data' in callbackData) {
         switch (callbackData.data) {
             case 'registro':

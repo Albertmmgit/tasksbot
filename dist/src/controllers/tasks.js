@@ -42,29 +42,9 @@ const getByUserId = async (req, res, next) => {
     }
 };
 exports.getByUserId = getByUserId;
-// export const getAll = async (req, res, next) => {
-//     const userId = req.userId
-//     const pending = req.query.pending === "true"
-//     console.log('aqui', req.query)
-//     try {
-//         const tasks = await Tasks.find({
-//             userId,
-//             completed: !pending
-//         })
-//         console.log('tasks', tasks)
-//         if (tasks.length === 0) {
-//             return res.status(200).send('No hay tareas pendientes');
-//         }
-//         res.status(200).json(tasks)
-//     } catch (error) {
-//         next(error)
-//         res.status(400).send('Error al obtener las tareas')
-//     }
-// }
 const getTaskByDate = async (req, res, next) => {
     const { task } = req.params;
     const userId = req.userId;
-    console.log(task, userId);
     try {
         const response = await tasks_1.Tasks.find({
             userId,
@@ -100,7 +80,6 @@ exports.deleteTask = deleteTask;
 const taskCompleted = async (req, res, next) => {
     const { task } = req.params;
     const userId = req.userId;
-    console.log(req.params);
     try {
         const response = await tasks_1.Tasks.findOneAndUpdate({
             userId,
