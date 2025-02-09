@@ -88,6 +88,7 @@ export const getDay = async (ctx: Context, token: string, obj: openAiResponse) =
 
         }
     )
+    if (data.length === 0 ) return ctx.reply('No se ha encontrado la tarea')
     console.log(data)
     audioResponse(ctx, data)
 }
