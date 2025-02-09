@@ -41,9 +41,12 @@ export const getAllTaskDate = async (ctx: Context, token: string, obj: openAiRes
     const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${expirationDate}` : ""}son:`  
     
     const newData = data.map(task => ({
-        ...task, 
-        formattedDate: format(new Date(task.expirationDate), "dd-MM-yyyy") 
-    }))
+        ...task,
+        formattedDate: task.expirationDate 
+            ? format(new Date(task.expirationDate), "dd-MM-yyyy") 
+            : "Fecha no disponible"
+    }));
+    
 
     const responseMessage = newData
     .map((task: openAiResponse, index: number) => 
