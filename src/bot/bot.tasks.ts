@@ -16,6 +16,9 @@ export const addTask = async (ctx: Context, token: string, obj: openAiResponse) 
             headers: { Authorization: token }
         }
     )
+
+    const date = format(new Date(data.expirationDate),"dd-MM-yyyy")
+    
     return ctx.reply(`Tarea ${data.description} grabada correctamente par el día ${data.expirationDate}`)
 }
 

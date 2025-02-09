@@ -15,6 +15,7 @@ const addTask = async (ctx, token, obj) => {
     const { data } = await axios_1.default.post(`${process.env.BACK_URL}/api/tasks/add-task`, task, {
         headers: { Authorization: token }
     });
+    const date = (0, date_fns_1.format)(new Date(data.expirationDate), "dd-MM-yyyy");
     return ctx.reply(`Tarea ${data.description} grabada correctamente par el día ${data.expirationDate}`);
 };
 exports.addTask = addTask;
