@@ -52,7 +52,9 @@ exports.bot.command('ejemplos', (ctx) => {
     const respone = `
     'Añade comprar pan mañana'
     'Ver tareas del domingo'
-    'Que día tengo que que entregar el exámen'
+    'Ver tareas pendientes'
+    'Reunion hecha'
+    'Que día tengo que entregar el exámen'
     `;
     ctx.sendMessage(respone);
 });

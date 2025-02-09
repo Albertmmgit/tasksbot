@@ -30,8 +30,11 @@ const getAllTaskDate = async (ctx, token, obj) => {
     console.log(data);
     if (!Array.isArray(data))
         return ctx.reply(data);
-    const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${expirationDate}` : ""} son:`;
-    const responseMessage = data.map((task, index) => `${index + 1}. ${task.description} ${task.completed ? "✅ " : "❌ "}`)
+    const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${expirationDate}` : ""}son:`;
+    const responseMessage = data
+        .map((task, index) => `${index + 1}. ${task.description}` +
+        (expirationDate ? "" : ` - ${task.expirationDate}`) +
+        (pending ? "" : ` ${task.completed ? "✅" : "❌"}`))
         .join("\n");
     return ctx.reply(responseMessage1), ctx.reply(responseMessage);
 };

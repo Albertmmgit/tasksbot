@@ -35,10 +35,16 @@ export const getAllTaskDate = async (ctx: Context, token: string, obj: openAiRes
     console.log(data)
     if (!Array.isArray(data)) return ctx.reply(data)
         
-    const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${expirationDate}` : ""} son:`   
+    const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${expirationDate}` : ""}son:`   
 
-    const responseMessage = data.map((task: openAiResponse, index: number) => `${index + 1}. ${task.description} ${task.completed ? "✅ " : "❌ "}`)
-        .join("\n");
+    const responseMessage = data
+    .map((task: openAiResponse, index: number) => 
+        `${index + 1}. ${task.description}` + 
+        (expirationDate ? "" : ` - ${task.expirationDate}`) + 
+        (pending ? "" : ` ${task.completed ? "✅" : "❌"}`)
+    )
+    .join("\n");
+
     return ctx.reply(responseMessage1), ctx.reply(responseMessage)
 }
 
