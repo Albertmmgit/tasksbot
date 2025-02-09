@@ -4,4 +4,5 @@ export interface openAiResponse {
     expirationDate: Date | null,
     pending: boolean | null
     completed?: boolean | null
+    formattedDate?: Date | null
 }

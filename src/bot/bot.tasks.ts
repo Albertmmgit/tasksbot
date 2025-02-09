@@ -51,7 +51,7 @@ export const getAllTaskDate = async (ctx: Context, token: string, obj: openAiRes
     const responseMessage = newData
     .map((task: openAiResponse, index: number) => 
         `${index + 1}. ${task.description}` + 
-        (expirationDate ? "" : ` - ${task.expirationDate}`) + 
+        (expirationDate ? "" : ` - ${task.formattedDate}`) + 
         (pending ? "" : ` ${task.completed ? "✅" : "❌"}`)
     )
     .join("\n");

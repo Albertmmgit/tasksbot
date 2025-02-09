@@ -40,7 +40,7 @@ const getAllTaskDate = async (ctx, token, obj) => {
     }));
     const responseMessage = newData
         .map((task, index) => `${index + 1}. ${task.description}` +
-        (expirationDate ? "" : ` - ${task.expirationDate}`) +
+        (expirationDate ? "" : ` - ${task.formattedDate}`) +
         (pending ? "" : ` ${task.completed ? "✅" : "❌"}`))
         .join("\n");
     return await ctx.reply(responseMessage1), await ctx.reply(responseMessage);
