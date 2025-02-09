@@ -36,7 +36,7 @@ export const getAllTaskDate = async (ctx: Context, token: string, obj: openAiRes
     console.log(data)
     if (!Array.isArray(data)) return ctx.reply(data)
 
- 
+
         
     const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${expirationDate}` : ""}son:`  
     

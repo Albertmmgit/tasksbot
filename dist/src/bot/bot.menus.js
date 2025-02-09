@@ -21,13 +21,13 @@ const callBackQuery = (ctx) => {
         switch (callbackData.data) {
             case 'registro':
                 {
-                    return ctx.reply('Introduce tu nombre de usuario y password separados por coma').then(() => {
+                    return ctx.reply('Para registrarte introduce tu nombre de usuario y password separados por coma').then(() => {
                         (0, bot_utilities_1.changeStatus)(ctx, 'register');
                     });
                 }
             case 'login':
                 {
-                    return ctx.reply('Introduce tu nombre de usuario y password separados por coma').then(() => {
+                    return ctx.reply('Para iniciar sesión introduce tu nombre de usuario y password separados por coma').then(() => {
                         (0, bot_utilities_1.changeStatus)(ctx, 'login');
                     });
                 }

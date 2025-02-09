@@ -34,7 +34,7 @@ const createResponse = async (ctx, date) => {
             "action": "Aquí escribe la acción", 
             "description": "Aquí escribe la tarea", 
             "pending": "devolver con 'true' si en ${ctx} interpretas que el usuario solo quiere ver tareas pendienes de realizar. Solo debes añadir el parametro pending en caso que sea true si no no incluyas pending"
-            "expirationDate" (si el usuario la indica): "Aquí escribe la fecha con formato YYYY-MM-DD",
+            "expirationDate" (si el usuario la indica): "Aquí escribe la fecha con formato dd-MM-yyyy",
             "completed" (if exists): "Aquí escribe 'true'" 
              en caso que la tarea sea completada
             }.
