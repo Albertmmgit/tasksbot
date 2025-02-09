@@ -31,7 +31,7 @@ const getAllTaskDate = async (ctx, token, obj) => {
     if (!Array.isArray(data))
         return ctx.reply(data);
     const date = (0, date_fns_1.format)(new Date(expirationDate), "dd-MM-yyyy");
-    const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${date}` : ""}son:`;
+    const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${date}` : ""} son:`;
     const newData = data.map(task => ({
         ...task,
         formattedDate: task.expirationDate
