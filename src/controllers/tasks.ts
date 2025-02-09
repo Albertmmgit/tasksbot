@@ -15,9 +15,9 @@ export const postTask = async (req, res, next) => {
 
 export const getByUserId = async (req, res, next) => {
     const userId  = req.userId
-    const { date, pending} = req.query
+    const { date, completed} = req.query
     console.log(typeof date)
-    console.log('pending?', pending)
+    console.log('pending?', completed)
 
     let filter: any = {userId}
 
@@ -30,7 +30,7 @@ export const getByUserId = async (req, res, next) => {
         filter.expirationDate = { $gte: startOfDay, $lte: endOfDay }
     }
 
-    if(pending) {
+    if(completed) {
         filter.completed = true
     }
 

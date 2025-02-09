@@ -16,9 +16,9 @@ const postTask = async (req, res, next) => {
 exports.postTask = postTask;
 const getByUserId = async (req, res, next) => {
     const userId = req.userId;
-    const { date, pending } = req.query;
+    const { date, completed } = req.query;
     console.log(typeof date);
-    console.log('pending?', pending);
+    console.log('pending?', completed);
     let filter = { userId };
     if (date) {
         const [year, month, day] = date.split("-");
@@ -26,7 +26,7 @@ const getByUserId = async (req, res, next) => {
         const endOfDay = new Date(`${year}-${month}-${day}T23:59:59.999Z`);
         filter.expirationDate = { $gte: startOfDay, $lte: endOfDay };
     }
-    if (pending) {
+    if (completed) {
         filter.completed = true;
     }
     console.log('filtro', filter);
