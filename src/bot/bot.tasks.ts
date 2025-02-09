@@ -88,5 +88,6 @@ export const getDay = async (ctx: Context, token: string, obj: openAiResponse) =
 
         }
     )
+    console.log(data)
     audioResponse(ctx, data)
 }

@@ -69,6 +69,7 @@ const getDay = async (ctx, token, obj) => {
     const { data } = await axios_1.default.get(`${process.env.BACK_URL}/api/tasks/${obj.description}`, {
         headers: { Authorization: token }
     });
+    console.log(data);
     (0, bot_utilities_1.audioResponse)(ctx, data);
 };
 exports.getDay = getDay;
