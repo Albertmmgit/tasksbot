@@ -35,8 +35,8 @@ export const login = async (ctx: Context) => {
         const { data } = await axios.post(`${process.env.BACK_URL}/api/users/login`, userData)
 
         changeStatus(ctx, 'logged')
-        ctx.reply(`Login Correcto con el usuario ${data.username}`)
-        ctx.reply('Ahora puedes crear, ver o eliminar tareas, asignarlas a un calendario o marcalas como completadas utilizando un lengaje natural ya sea con texto o voz. Utiliza el comando /ejemplos para ver que puedes hacer')
+        await ctx.reply(`Login Correcto con el usuario ${data.username}`)
+        await ctx.reply('Ahora puedes crear, ver o eliminar tareas, asignarlas a un calendario o marcalas como completadas utilizando un lengaje natural ya sea con texto o voz. Utiliza el comando /ejemplos para ver que puedes hacer')
         addToken(ctx, data.token)
         return
 

@@ -64,6 +64,17 @@ bot.command('ejemplos', (ctx) => {
     ctx.sendMessage(respone)
 })
 
+bot.command('logout', (ctx) => {
+    const id = ctx.chat.id
+    for (const user of connectedUsers) {
+        if (user.id === id) {
+            connectedUsers.delete(user);
+            ctx.reply('Te has desconetado')
+            break;
+        }
+    }
+})
+
 bot.on('callback_query', (ctx) => {
     callBackQuery(ctx)
 });
@@ -106,13 +117,4 @@ bot.on('message', async (ctx: Context) => {
 
 })
 
-bot.command('logout', (ctx) => {
-    const id = ctx.chat.id
-    for (const user of connectedUsers) {
-        if (user.id === id) {
-            connectedUsers.delete(user);
-            ctx.reply('Te has desconetado')
-            break;
-        }
-    }
-})
+

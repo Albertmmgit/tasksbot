@@ -58,6 +58,16 @@ exports.bot.command('ejemplos', (ctx) => {
     `;
     ctx.sendMessage(respone);
 });
+exports.bot.command('logout', (ctx) => {
+    const id = ctx.chat.id;
+    for (const user of exports.connectedUsers) {
+        if (user.id === id) {
+            exports.connectedUsers.delete(user);
+            ctx.reply('Te has desconetado');
+            break;
+        }
+    }
+});
 exports.bot.on('callback_query', (ctx) => {
     (0, bot_menus_1.callBackQuery)(ctx);
 });
@@ -94,14 +104,4 @@ exports.bot.on('message', async (ctx) => {
         return;
     }
     (0, bot_menus_1.logMenu)(ctx, user);
-});
-exports.bot.command('logout', (ctx) => {
-    const id = ctx.chat.id;
-    for (const user of exports.connectedUsers) {
-        if (user.id === id) {
-            exports.connectedUsers.delete(user);
-            ctx.reply('Te has desconetado');
-            break;
-        }
-    }
 });
