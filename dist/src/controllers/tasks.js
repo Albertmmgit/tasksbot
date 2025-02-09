@@ -17,7 +17,6 @@ exports.postTask = postTask;
 const getByUserId = async (req, res, next) => {
     const userId = req.userId;
     const { expirationDate, completed } = req.query;
-    console.log('pending?', completed);
     let filter = { userId };
     if (expirationDate) {
         const [year, month, day] = expirationDate.split("-");
@@ -28,7 +27,6 @@ const getByUserId = async (req, res, next) => {
     if (completed) {
         filter.completed = false;
     }
-    console.log('filtro', filter);
     try {
         const tasks = await tasks_1.Tasks.find(filter);
         if (tasks.length === 0) {

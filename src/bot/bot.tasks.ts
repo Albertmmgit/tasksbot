@@ -3,7 +3,7 @@ import { Context } from "telegraf";
 import { openAiResponse } from "../interfaces/iopenairesponse";
 import { audioResponse } from "./bot.utilities";
 import { tasksFilter } from "../interfaces/itaskfilter";
-import {format} from 'date-fns'
+import { format } from 'date-fns'
 
 
 export const addTask = async (ctx: Context, token: string, obj: openAiResponse) => {
@@ -16,50 +16,47 @@ export const addTask = async (ctx: Context, token: string, obj: openAiResponse) 
             headers: { Authorization: token }
         }
     )
+    const date = format(new Date(data.expirationDate), "dd-MM-yyyy")
 
-    const date = format(new Date(data.expirationDate),"dd-MM-yyyy")
-    
-    return ctx.reply(`Tarea ${data.description} grabada correctamente par el día ${data.expirationDate}`)
+    return ctx.reply(`Tarea ${data.description} grabada correctamente par el día ${date}`)
 }
 
 export const getAllTaskDate = async (ctx: Context, token: string, obj: openAiResponse) => {
 
-    const {expirationDate, pending} = obj
+    const { expirationDate, pending } = obj
 
-    const params: tasksFilter = { expirationDate}
+    const params: tasksFilter = { expirationDate }
 
     if (pending) params.completed = true
-    console.log(params)
+
     const { data } = await axios.get(`${process.env.BACK_URL}/api/tasks/get`,
         {
             params,
             headers: { Authorization: token }
         }
     )
-    console.log(data)
+
     if (!Array.isArray(data)) return ctx.reply(data)
 
 
-        
-    const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${expirationDate}` : ""}son:`  
-    
+    const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${expirationDate}` : ""}son:`
+
     const newData = data.map(task => ({
         ...task,
-        formattedDate: task.expirationDate 
-            ? format(new Date(task.expirationDate), "dd-MM-yyyy") 
+        formattedDate: task.expirationDate
+            ? format(new Date(task.expirationDate), "dd-MM-yyyy")
             : "Fecha no disponible"
     }));
-    
 
-    const responseMessage = newData
-    .map((task: openAiResponse, index: number) => 
-        `${index + 1}. ${task.description}` + 
-        (expirationDate ? "" : ` - ${task.formattedDate}`) + 
-        (pending ? "" : ` ${task.completed ? "✅" : "❌"}`)
-    )
-    .join("\n");
+    const responseMessage2 = newData
+        .map((task: openAiResponse, index: number) =>
+            `${index + 1}. ${task.description}` +
+            (expirationDate ? "" : ` - ${task.formattedDate}`) +
+            (pending ? "" : ` ${task.completed ? "✅" : "❌"}`)
+        )
+        .join("\n");
 
-    return await ctx.reply(responseMessage1), await ctx.reply(responseMessage)
+    return await ctx.reply(responseMessage1), await ctx.reply(responseMessage2)
 }
 
 export const checkCompleted = async (ctx: Context, token: string, obj: openAiResponse) => {
@@ -87,7 +84,7 @@ export const getDay = async (ctx: Context, token: string, obj: openAiResponse) =
 
         }
     )
-    if (data.length === 0 ) return ctx.reply('No se ha encontrado la tarea')
-    console.log(data)
+    if (data.length === 0) return ctx.reply('No se ha encontrado la tarea')
+
     audioResponse(ctx, data)
 }

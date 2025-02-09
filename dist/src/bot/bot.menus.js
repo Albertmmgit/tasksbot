@@ -57,11 +57,6 @@ const actionsMenu = (ctx, obj, user) => {
                 (0, bot_tasks_1.deleteTask)(ctx, user.token, obj);
                 break;
             }
-        // case 'getAllTasks' :
-        //     {
-        //         getAllTasks(ctx, user.token, obj)
-        //         break
-        //     }
         case 'getDay':
             {
                 (0, bot_tasks_1.getDay)(ctx, user.token, obj);

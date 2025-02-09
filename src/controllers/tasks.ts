@@ -14,27 +14,23 @@ export const postTask = async (req, res, next) => {
 }
 
 export const getByUserId = async (req, res, next) => {
-    const userId  = req.userId
-    const { expirationDate, completed} = req.query
-    
-    console.log('pending?', completed)
+    const userId = req.userId
+    const { expirationDate, completed } = req.query
 
-    let filter: any = {userId}
+    let filter: any = { userId }
 
     if (expirationDate) {
         const [year, month, day] = expirationDate.split("-");
-    
+
         const startOfDay = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
         const endOfDay = new Date(`${year}-${month}-${day}T23:59:59.999Z`);
 
         filter.expirationDate = { $gte: startOfDay, $lte: endOfDay }
     }
 
-    if(completed) {
+    if (completed) {
         filter.completed = false
     }
-
-    console.log('filtro', filter)
 
     try {
         const tasks = await Tasks.find(filter)
@@ -51,6 +47,7 @@ export const getByUserId = async (req, res, next) => {
 export const getTaskByDate = async (req, res, next) => {
     const { task } = req.params
     const userId = req.userId
+
     try {
         const response = await Tasks.find({
             userId,
@@ -65,7 +62,7 @@ export const getTaskByDate = async (req, res, next) => {
 
 export const deleteTask = async (req, res, next) => {
     const { task } = req.params;
-    const userId  = req.userId
+    const userId = req.userId
     try {
         const response = await Tasks.findOneAndDelete(
             {
@@ -84,8 +81,8 @@ export const deleteTask = async (req, res, next) => {
 }
 
 export const taskCompleted = async (req, res, next) => {
-    const  {task}  = req.params
-    const  userId  = req.userId
+    const { task } = req.params
+    const userId = req.userId
     try {
         const response = await Tasks.findOneAndUpdate(
             {

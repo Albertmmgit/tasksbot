@@ -16,7 +16,7 @@ const addTask = async (ctx, token, obj) => {
         headers: { Authorization: token }
     });
     const date = (0, date_fns_1.format)(new Date(data.expirationDate), "dd-MM-yyyy");
-    return ctx.reply(`Tarea ${data.description} grabada correctamente par el día ${data.expirationDate}`);
+    return ctx.reply(`Tarea ${data.description} grabada correctamente par el día ${date}`);
 };
 exports.addTask = addTask;
 const getAllTaskDate = async (ctx, token, obj) => {
@@ -24,12 +24,10 @@ const getAllTaskDate = async (ctx, token, obj) => {
     const params = { expirationDate };
     if (pending)
         params.completed = true;
-    console.log(params);
     const { data } = await axios_1.default.get(`${process.env.BACK_URL}/api/tasks/get`, {
         params,
         headers: { Authorization: token }
     });
-    console.log(data);
     if (!Array.isArray(data))
         return ctx.reply(data);
     const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${expirationDate}` : ""}son:`;
@@ -39,12 +37,12 @@ const getAllTaskDate = async (ctx, token, obj) => {
             ? (0, date_fns_1.format)(new Date(task.expirationDate), "dd-MM-yyyy")
             : "Fecha no disponible"
     }));
-    const responseMessage = newData
+    const responseMessage2 = newData
         .map((task, index) => `${index + 1}. ${task.description}` +
         (expirationDate ? "" : ` - ${task.formattedDate}`) +
         (pending ? "" : ` ${task.completed ? "✅" : "❌"}`))
         .join("\n");
-    return await ctx.reply(responseMessage1), await ctx.reply(responseMessage);
+    return await ctx.reply(responseMessage1), await ctx.reply(responseMessage2);
 };
 exports.getAllTaskDate = getAllTaskDate;
 const checkCompleted = async (ctx, token, obj) => {
@@ -67,7 +65,6 @@ const getDay = async (ctx, token, obj) => {
     });
     if (data.length === 0)
         return ctx.reply('No se ha encontrado la tarea');
-    console.log(data);
     (0, bot_utilities_1.audioResponse)(ctx, data);
 };
 exports.getDay = getDay;

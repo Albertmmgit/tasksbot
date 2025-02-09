@@ -22,13 +22,13 @@ export const bot = new Telegraf(process.env.BOT_TOKEN!);
 export const connectedUsers: Set<User> = new Set()
 
 bot.telegram.setMyCommands([
-    {command: '/iniciar', description: 'Iniciar App'},
-    {command: '/logout', description: 'Desconectarse'},
-    {command: '/ejemplos', description: 'Ver ejemplos'}
+    { command: '/iniciar', description: 'Iniciar App' },
+    { command: '/logout', description: 'Desconectarse' },
+    { command: '/ejemplos', description: 'Ver ejemplos' }
 ])
 
-bot.start( (ctx) => {
- 
+bot.start((ctx) => {
+
     const welcomeMessage = `
     ¡Hola! 👋
     Bienvenida@. Utiliza el comando /iniciar para iniciar la aplicación
@@ -79,14 +79,12 @@ bot.on('message', async (ctx: Context) => {
         const text = ctx.message.text
         const response = await createResponse(text, date)
         const obj: openAiResponse = JSON.parse(response!);
-        console.log('response', response)
-        console.log('obj', obj)
         actionsMenu(ctx, obj, user)
         return
     }
 
     if (user.logged === true && 'voice' in ctx.message!) {
-        const fileId = ctx.message.voice.file_id; 
+        const fileId = ctx.message.voice.file_id;
         const fileLink = await ctx.telegram.getFileLink(fileId);
         const url = fileLink.toString()
         const audioResponse = await axios.get(url, { responseType: 'stream' });

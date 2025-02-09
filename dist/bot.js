@@ -71,8 +71,6 @@ exports.bot.on('message', async (ctx) => {
         const text = ctx.message.text;
         const response = await (0, gpt_1.createResponse)(text, date);
         const obj = JSON.parse(response);
-        console.log('response', response);
-        console.log('obj', obj);
         (0, bot_menus_1.actionsMenu)(ctx, obj, user);
         return;
     }
