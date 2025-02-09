@@ -1,3 +1,4 @@
+import { tasksFilter } from "../interfaces/itaskfilter";
 import { Tasks } from "../models/tasks"
 
 
@@ -14,20 +15,28 @@ export const postTask = async (req, res, next) => {
 
 export const getByUserId = async (req, res, next) => {
     const userId  = req.userId
-    const { date } = req.query
+    const { date, pending} = req.query
     console.log(typeof date)
     console.log(userId)
 
-    const [year, month, day] = date.split("-");
+    let filter : tasksFilter = {userId}
 
-    const startOfDay = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
-    const endOfDay = new Date(`${year}-${month}-${day}T23:59:59.999Z`);
+    if (date) {
+        const [year, month, day] = date.split("-");
+    
+        const startOfDay = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
+        const endOfDay = new Date(`${year}-${month}-${day}T23:59:59.999Z`);
+
+        filter.expirationDate = { $gte: startOfDay, $lte: endOfDay }
+    }
+
+    if(pending) {
+        filter.completed = true
+    }
+
 
     try {
-        const tasks = await Tasks.find({
-            userId, 
-            expirationDate: { $gte: startOfDay, $lte: endOfDay }
-        })
+        const tasks = await Tasks.find(filter)
         if (tasks.length === 0) {
             return res.status(200).send(`No hay tareas asignadas para el día ${date}.`);
         }
@@ -38,25 +47,25 @@ export const getByUserId = async (req, res, next) => {
     }
 }
 
-export const getAll = async (req, res, next) => {
-    const userId = req.userId
-    const pending = req.query.pending === "true"
-    console.log('aqui', req.query)
-    try {
-        const tasks = await Tasks.find({
-            userId,
-            completed: !pending
-        })
-        console.log('tasks', tasks)
-        if (tasks.length === 0) {
-            return res.status(200).send('No hay tareas pendientes');
-        }
-        res.status(200).json(tasks)
-    } catch (error) {
-        next(error)
-        res.status(400).send('Error al obtener las tareas')
-    }
-}
+// export const getAll = async (req, res, next) => {
+//     const userId = req.userId
+//     const pending = req.query.pending === "true"
+//     console.log('aqui', req.query)
+//     try {
+//         const tasks = await Tasks.find({
+//             userId,
+//             completed: !pending
+//         })
+//         console.log('tasks', tasks)
+//         if (tasks.length === 0) {
+//             return res.status(200).send('No hay tareas pendientes');
+//         }
+//         res.status(200).json(tasks)
+//     } catch (error) {
+//         next(error)
+//         res.status(400).send('Error al obtener las tareas')
+//     }
+// }
 
 export const getTaskByDate = async (req, res, next) => {
     const { task } = req.params

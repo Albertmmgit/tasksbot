@@ -28,13 +28,13 @@ const createResponse = async (ctx, date) => {
         model: 'chatgpt-4o-latest',
         messages: [
             { role: 'system', content: 'Eres un asistente especializado en gestionar tareas dentro de una aplicación. No debes responder con texto para el usuario, sino con un JSON válido sin markdowns que indique qué acción debe realizar la API.' },
-            { role: 'assistant', content: `Tu objetivo es analizar la petición del usuario y clasificarla en una de las siguientes acciones: "addTask" (añadir tarea), "getTask" (consultar tareas por fecha), "getAllTasks" (consultar todas las tareas sin expecificar la fehca), "checkCompleted" (marcar tarea como completada), "deleteTask" (eliminar tarea) o "getDay" (preguntar que día hay que hacer una determinada tarea). Siempre tienes que basarte en ${date} para determinar la fecha correcta, ten en cuenta tambíen que la fecha de grabación siempre sera superior a la actual` },
-            { role: 'user', content: `El usuario te pasa esta peticion ${ctx}, tu función es determinar que quiere hacer el usuario, las opciones sin grabar una tarea, eliminarla, ver tareas pendientes en una fecha determinada, marcar como completada una determinada tarea...Las acciones que debes determinar son: "addTask", "getTask" (by Id or date), "getAllTasks", "checkCompleted", "deleteTask", "getDay". Devuelve la respuesta como una cadena en un formato válido json sin markdowns:
+            { role: 'assistant', content: `Tu objetivo es analizar la petición del usuario y clasificarla en una de las siguientes acciones: "addTask" (añadir tarea), "getTask" (consultar tareas) (consultar todas las tareas sin expecificar la fehca), "checkCompleted" (marcar tarea como completada), "deleteTask" (eliminar tarea) o "getDay" (preguntar que día hay que hacer una determinada tarea). Siempre tienes que basarte en ${date} para determinar la fecha correcta, ten en cuenta tambíen que la fecha de grabación siempre sera superior a la actual` },
+            { role: 'user', content: `El usuario te pasa esta peticion ${ctx}, tu función es determinar que quiere hacer el usuario, las opciones sin grabar una tarea, eliminarla, ver tareas pendientes en una fecha determinada, marcar como completada una determinada tarea...Las acciones que debes determinar son: "addTask", "getTask" (el usuario puede hacer la consulta por fecha, por taras pendientes o sin especificar), "checkCompleted", "deleteTask", "getDay". Devuelve la respuesta como una cadena en un formato válido json sin markdowns:
             {
             "action": "Aquí escribe la acción", 
             "description": "Aquí escribe la tarea", 
             "pending": "devolver con 'true' si en ${ctx} interpretas que el usuario solo quiere ver tareas pendienes de realizar"
-            "expirationDate" (if exists): "Aquí escribe la fecha con formato YYYY-MM-DD",
+            "expirationDate" (si el usuario la indica): "Aquí escribe la fecha con formato YYYY-MM-DD",
             "completed" (if exists): "Aquí escribe 'true'" 
              en caso que la tarea sea completada
             }.
