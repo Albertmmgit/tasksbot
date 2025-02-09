@@ -19,14 +19,17 @@ const addTask = async (ctx, token, obj) => {
 exports.addTask = addTask;
 const getAllTaskDate = async (ctx, token, obj) => {
     const { expirationDate, pending } = obj;
+    const params = { expirationDate };
+    if (pending)
+        params.completed = true;
     const { data } = await axios_1.default.get(`${process.env.BACK_URL}/api/tasks/get`, {
-        params: { expirationDate, pending },
+        params,
         headers: { Authorization: token }
     });
     console.log(data);
     if (!Array.isArray(data))
         return ctx.reply(data);
-    const responseMessage1 = `Las tareas ${pending ? "" : 'pendientes'} ${expirationDate ? "" : `para el día ${expirationDate}`} son:`;
+    const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${expirationDate}` : ""} son:`;
     const responseMessage = data.map((task, index) => `${index + 1}. ${task.description} ${task.completed ? "✅ " : "❌ "}`)
         .join("\n");
     return ctx.reply(responseMessage1), ctx.reply(responseMessage);

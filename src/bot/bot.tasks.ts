@@ -2,6 +2,7 @@ import axios from "axios"
 import { Context } from "telegraf";
 import { openAiResponse } from "../interfaces/iopenairesponse";
 import { audioResponse } from "./bot.utilities";
+import { tasksFilter } from "../interfaces/itaskfilter";
 
 
 export const addTask = async (ctx: Context, token: string, obj: openAiResponse) => {
@@ -21,16 +22,20 @@ export const getAllTaskDate = async (ctx: Context, token: string, obj: openAiRes
 
     const {expirationDate, pending} = obj
 
+    const params: tasksFilter = { expirationDate}
+
+    if (pending) params.completed = true
+
     const { data } = await axios.get(`${process.env.BACK_URL}/api/tasks/get`,
         {
-            params: { expirationDate, pending },
+            params,
             headers: { Authorization: token }
         }
     )
     console.log(data)
     if (!Array.isArray(data)) return ctx.reply(data)
         
-    const responseMessage1 = `Las tareas ${pending ? "" : 'pendientes'} ${expirationDate ? "" : `para el día ${expirationDate}`} son:`   
+    const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${expirationDate}` : ""} son:`   
 
     const responseMessage = data.map((task: openAiResponse, index: number) => `${index + 1}. ${task.description} ${task.completed ? "✅ " : "❌ "}`)
         .join("\n");

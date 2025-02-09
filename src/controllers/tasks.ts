@@ -19,7 +19,7 @@ export const getByUserId = async (req, res, next) => {
     console.log(typeof date)
     console.log(userId)
 
-    let filter : tasksFilter = {userId}
+    let filter: any = {userId}
 
     if (date) {
         const [year, month, day] = date.split("-");

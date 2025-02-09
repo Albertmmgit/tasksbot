@@ -1,5 +1,5 @@
 export interface tasksFilter {
-userId: number,
-expirationDate?: { $gte: Date; $lte: Date },
+userId?: number,
+expirationDate?: Date | null,
 completed?: boolean
 }
