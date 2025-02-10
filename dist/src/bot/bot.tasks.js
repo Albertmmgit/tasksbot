@@ -16,6 +16,8 @@ const addTask = async (ctx, token, obj) => {
         headers: { Authorization: token }
     });
     const date = (0, date_fns_1.format)(new Date(data.expirationDate), "dd-MM-yyyy");
+    if (!data)
+        return ctx.reply('Error al grabar la tarea');
     return ctx.reply(`Tarea ${data.description} grabada correctamente par el día ${date}`);
 };
 exports.addTask = addTask;
@@ -49,6 +51,8 @@ const checkCompleted = async (ctx, token, obj) => {
     const { data } = await axios_1.default.put(`${process.env.BACK_URL}/api/tasks/${obj.description}/completed`, {}, {
         headers: { Authorization: token }
     });
+    if (!data)
+        return ctx.reply('Error al completar la tarea');
     return ctx.reply(data);
 };
 exports.checkCompleted = checkCompleted;

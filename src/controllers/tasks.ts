@@ -9,7 +9,7 @@ export const postTask = async (req, res, next) => {
         res.status(200).json(task)
     } catch (error) {
         next(error)
-        res.status(400).send('No se ha podido guardar la tarea')
+        
     }
 }
 

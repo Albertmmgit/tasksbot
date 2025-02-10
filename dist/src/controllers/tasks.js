@@ -10,7 +10,6 @@ const postTask = async (req, res, next) => {
     }
     catch (error) {
         next(error);
-        res.status(400).send('No se ha podido guardar la tarea');
     }
 };
 exports.postTask = postTask;

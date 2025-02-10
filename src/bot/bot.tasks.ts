@@ -17,7 +17,7 @@ export const addTask = async (ctx: Context, token: string, obj: openAiResponse) 
         }
     )
     const date = format(new Date(data.expirationDate), "dd-MM-yyyy")
-
+    if(!data) return ctx.reply('Error al grabar la tarea')
     return ctx.reply(`Tarea ${data.description} grabada correctamente par el día ${date}`)
 }
 
@@ -67,6 +67,7 @@ export const checkCompleted = async (ctx: Context, token: string, obj: openAiRes
             headers: { Authorization: token }
         }
     )
+    if(!data) return ctx.reply('Error al completar la tarea')
     return ctx.reply(data)
 }
 
