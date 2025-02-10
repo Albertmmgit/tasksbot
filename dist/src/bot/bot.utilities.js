@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.audioResponse = exports.addToken = exports.changeStatus = void 0;
+exports.isValidJson = exports.audioResponse = exports.addToken = exports.changeStatus = void 0;
 const bot_1 = require("../../bot");
 const googleTTS = __importStar(require("google-tts-api"));
 const gpt_1 = require("../../gpt");
@@ -71,3 +71,13 @@ const audioResponse = async (ctx, data) => {
     });
 };
 exports.audioResponse = audioResponse;
+const isValidJson = (str) => {
+    try {
+        JSON.parse(str);
+        return true;
+    }
+    catch (e) {
+        return false;
+    }
+};
+exports.isValidJson = isValidJson;

@@ -53,7 +53,7 @@ exports.bot.command('ejemplos', (ctx) => {
     'Añade comprar pan mañana'
     'Ver tareas del domingo'
     'Ver tareas pendientes'
-    'Reunion hecha'
+    'Reunion completada'
     'Que día tengo que entregar el exámen'
     `;
     ctx.sendMessage(respone);
@@ -80,6 +80,8 @@ exports.bot.on('message', async (ctx) => {
     if (user.logged === true && 'text' in ctx.message) {
         const text = ctx.message.text;
         const response = await (0, gpt_1.createResponse)(text, date);
+        if (!(0, bot_utilities_1.isValidJson)(response))
+            return ctx.reply('Error al recibir la respuesta');
         const obj = JSON.parse(response);
         (0, bot_menus_1.actionsMenu)(ctx, obj, user);
         return;
@@ -97,9 +99,9 @@ exports.bot.on('message', async (ctx) => {
         });
         fs_1.default.unlinkSync(file);
         const response = await (0, gpt_1.createResponse)(transcription.text, date);
+        if (!(0, bot_utilities_1.isValidJson)(response))
+            return ctx.reply('Error al recibir la respuesta');
         const obj = JSON.parse(response);
-        console.log('response', response);
-        console.log('obj', obj);
         (0, bot_menus_1.actionsMenu)(ctx, obj, user);
         return;
     }

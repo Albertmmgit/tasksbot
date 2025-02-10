@@ -9,7 +9,7 @@ import { promisify } from 'util';
 import fs from 'fs'
 import OpenAI from "openai";
 import { pipeline } from 'stream';
-import { changeStatus } from './src/bot/bot.utilities';
+import { changeStatus, isValidJson } from './src/bot/bot.utilities';
 
 
 const openAi = new OpenAI({
@@ -57,7 +57,7 @@ bot.command('ejemplos', (ctx) => {
     'Añade comprar pan mañana'
     'Ver tareas del domingo'
     'Ver tareas pendientes'
-    'Reunion hecha'
+    'Reunion completada'
     'Que día tengo que entregar el exámen'
     `;
 
@@ -89,6 +89,7 @@ bot.on('message', async (ctx: Context) => {
     if (user.logged === true && 'text' in ctx.message!) {
         const text = ctx.message.text
         const response = await createResponse(text, date)
+        if (!isValidJson(response!)) return ctx.reply('Error al recibir la respuesta')
         const obj: openAiResponse = JSON.parse(response!);
         actionsMenu(ctx, obj, user)
         return
@@ -107,9 +108,8 @@ bot.on('message', async (ctx: Context) => {
         })
         fs.unlinkSync(file)
         const response = await createResponse(transcription.text, date)
+        if (!isValidJson(response!)) return ctx.reply('Error al recibir la respuesta')
         const obj: openAiResponse = JSON.parse(response!);
-        console.log('response', response)
-        console.log('obj', obj)
         actionsMenu(ctx, obj, user)
         return
     }
