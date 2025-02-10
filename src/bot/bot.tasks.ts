@@ -67,7 +67,7 @@ export const checkCompleted = async (ctx: Context, token: string, obj: openAiRes
             headers: { Authorization: token }
         }
     )
-    if(!data) return ctx.reply('Error al completar la tarea')
+    
     return ctx.reply(data)
 }
 

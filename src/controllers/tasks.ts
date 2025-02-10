@@ -98,6 +98,7 @@ export const taskCompleted = async (req, res, next) => {
         }
         res.status(200).json(`Tarea ${task} completada`)
     } catch (error) {
+        res.status(400).send('Error al completar la tarea')
         next(error)
     }
 }

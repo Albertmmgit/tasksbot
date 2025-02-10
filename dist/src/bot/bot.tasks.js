@@ -51,8 +51,6 @@ const checkCompleted = async (ctx, token, obj) => {
     const { data } = await axios_1.default.put(`${process.env.BACK_URL}/api/tasks/${obj.description}/completed`, {}, {
         headers: { Authorization: token }
     });
-    if (!data)
-        return ctx.reply('Error al completar la tarea');
     return ctx.reply(data);
 };
 exports.checkCompleted = checkCompleted;
