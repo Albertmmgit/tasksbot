@@ -37,11 +37,11 @@ export const getAllTaskDate = async (ctx: Context, token: string, obj: openAiRes
     )
 
     if (!Array.isArray(data)) return ctx.reply(data)
+    
 
-    const date = format(new Date(expirationDate!), "dd-MM-yyyy")
 
 
-    const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${date}` : ""} son:`
+    const responseMessage1 = `Las tareas ${pending ? 'pendientes' : ""} ${expirationDate ? `para el día ${format(new Date(expirationDate!), "dd-MM-yyyy")}` : ""} son:`
 
     const newData = data.map(task => ({
         ...task,
